@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escaneo de Imagen Ultrasonido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Espaciado entre los elementos */
+            margin-top: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        #loading {
+            display: none; /* Oculto por defecto */
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        /* Estilos para el marco de la imagen */
+        #image-frame {
+            border: 5px solid #333;  /* Borde del marco */
+            padding: 10px;  /* Espacio entre la imagen y el borde */
+            display: inline-block; /* Para que la imagen esté dentro de un contenedor */
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar un efecto de profundidad */
+        }
+    </style>
+</head>
+<body>
+    <h1>Escaneo de Imagen Ultrasonido</h1>
+    <div id="form-container">
+        <label for="dimensionInput">    <!-- Campo para ingresar la dimensión -->
+            Dimensión (px):
+            <input id="dimensionInput" type="number" min="1" max="180" value="10">
+        </label>
+        <label for="thresholdInput">    <!-- Campo para ingresar el umbral de distancia -->
+            Distancia Max. (cm):
+            <input id="thresholdInput" type="number" min="1" max="400" value="100">
+        </label>
+        <button id="scanButton">Escanear</button>
+    </div>
+    <div id="loading">
+        <img src="https://i.gifer.com/YCZH.gif" alt="Cargando..." width="500"> <!-- URL de un GIF animado para LOADING -->
+        <p>Escaneando...</p>
+    </div>
+    <div id="result">
+        <h2>Resultado:</h2>
+        <!-- Contenedor para el marco de la imagen -->
+        <div id="image-frame">
+            <img id="scannedImage" src="" alt="Imagen escaneada" style="width: 500px; height: 500px; image-rendering: pixelated;">
+        </div>
+    </div>
+
+    <script>
+        const scanButton = document.getElementById('scanButton');
+        const loadingDiv = document.getElementById('loading');
+        const scannedImage = document.getElementById('scannedImage');
+        const dimensionInput = document.getElementById('dimensionInput');
+        const thresholdInput = document.getElementById('thresholdInput');
+
+        scanButton.addEventListener('click', async () => {
+            const dimension = parseInt(dimensionInput.value, 10);
+            const threshold = parseInt(thresholdInput.value, 10);
+
+            // Validar entradas
+            if (dimension < 1 || dimension > 30) {
+                alert('La dimensión debe estar entre 1 y 30.');
+                return;
+            }
+            if (threshold < 1 || threshold > 400) {
+                alert('El umbral de distancia máx. debe estar entre 1 y 400.');
+                return;
+            }
+
+            // Mostrar el GIF de carga
+            loadingDiv.style.display = 'block';
+            scannedImage.src = ''; // Limpiar imagen previa
+
+            try {
+                const response = await fetch('/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ dimension, threshold }),
+                });
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+
+                    // Ocultar el GIF de carga y mostrar la imagen escaneada
+                    scannedImage.src = url;
+                } else {
+                    alert('Error al escanear la imagen.');
+                }
+            } catch (error) {
+                alert('Hubo un problema con la solicitud.');
+            } finally {
+                // Mantener el GIF de carga oculto
+                loadingDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
