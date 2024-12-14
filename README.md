@@ -7,13 +7,13 @@ Este código escanea el entorno utilizando servos para mover una plataforma y un
 Para realizar el escaneo de imágenes, acceder a la web corriendo el código de python, completar los campos requeridos y pulsar "Escanear".
 
 ## Montaje Hardware
-![Diagrama del circuito montado](images/circuito.png)
+![Diagrama del circuito montado](https://drive.google.com/file/d/1v0TLSn0VJLd4hWbvovWPz_NJ-pbelwTA/view?usp=sharing)
 **Nota:** Los servos están acoplados en una plataforma pan-and-tilt para mover el sensor de ultrasonidos en horizontal y en vertical.
 
 ## Ejecución software
-1. Cargar el código `scanner.ino` en la placa de arduino
-2. Para correr el código y acceder a la dirección web, ejecutar el fichero de python app.py `python app.py`
-3. Acceder a la ip local mostrada por terminal
+1. Cargar el código `scanner.ino` en la placa de arduino.
+2. Para correr el código y acceder a la dirección web, ejecutar el fichero de python app.py:  `python app.py`
+3. Acceder a la ip local mostrada por terminal.
 
 ## Código adicional - Pruebas
-Para poder verificar el correcto funcionamiento del sensor de ultrasonidos y el movimiento de los servo motores se incluyen los códigos `prueba_servos.ino` y `prueba_ultrasonido.ino`
+Para poder verificar el correcto funcionamiento del sensor de ultrasonidos y el movimiento de los servo motores se incluyen los códigos `prueba_servos.ino` y `prueba_ultrasonido.ino`.
