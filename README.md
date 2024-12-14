@@ -7,7 +7,7 @@ Este código escanea el entorno utilizando servos para mover una plataforma y un
 Para realizar el escaneo de imágenes, acceder a la web corriendo el código de python, completar los campos requeridos y pulsar "Escanear".
 
 ## Montaje Hardware
-![Diagrama del circuito montado](https://drive.google.com/file/d/1v0TLSn0VJLd4hWbvovWPz_NJ-pbelwTA/view?usp=sharing)
+![Diagrama del circuito montado](https://drive.google.com/uc?export=view&id=1v0TLSn0VJLd4hWbvovWPz_NJ-pbelwTA)
 **Nota:** Los servos están acoplados en una plataforma pan-and-tilt para mover el sensor de ultrasonidos en horizontal y en vertical.
 
 ## Ejecución software
